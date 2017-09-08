@@ -52,59 +52,12 @@ public class QueryHandler : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(Input.text) || Input.text != queryText)
         {
-            //CleanContent();
             InfoPanelController.CleanContent();
             queryText = Input.text;
             StartCoroutine(GetPrograms());
         }
     }
-/*
-    void CleanContent()
-    {
-        if (InfoPanel.activeInHierarchy)
-        {
-            StartCoroutine(FadeOutInfoPanel());
-        }
-        GameObject[] programButtons = GameObject.FindGameObjectsWithTag("ProgramButton");
-        foreach (GameObject programButton in programButtons)
-        {
-            Destroy(programButton);
-        }
-    }
 
-    IEnumerator FadeOutInfoPanel()
-    {
-        int panelAlpha = (int)InfoPanel.GetComponent<CanvasGroup>().alpha * 100;
-        for (int i = panelAlpha; i > 0; i -= 5)
-        {
-            float f = i / 100f;
-            InfoPanel.GetComponent<CanvasGroup>().alpha = f;
-            yield return null;
-        }
-        InfoPanel.SetActive(false);
-    }
-
-    public void ShowInfoPanel()
-    {
-        if (!InfoPanel.activeInHierarchy)
-        {
-            InfoPanel.SetActive(true);
-        }
-        StartCoroutine(FadeInInfoPanel());
-        LayoutRebuilder.ForceRebuildLayoutImmediate(InfoPanel.GetComponent<RectTransform>());
-    }
-
-    IEnumerator FadeInInfoPanel()
-    {        
-        float panelAlpha = InfoPanel.GetComponent<CanvasGroup>().alpha;
-        for (int i = 20; i <= 100; i += 5)
-        {
-            float f = i / 100f;
-            InfoPanel.GetComponent<CanvasGroup>().alpha = f;
-            yield return null;
-        }        
-    }
-    */
     IEnumerator GetPrograms()
     {
         UnityWebRequest www = UnityWebRequest.Get(baseUrl + auth + limit + "&type=program" + "&q=" + queryText);
@@ -139,7 +92,6 @@ public class QueryHandler : MonoBehaviour
             {
                 if (obj.keys.IndexOf("title") > -1)
                 {
-                    //i = obj.keys.IndexOf("title");
                     data = obj.list[obj.keys.IndexOf("title")];
                     if (data.keys.IndexOf("fi") > -1)
                     {
@@ -167,7 +119,9 @@ public class QueryHandler : MonoBehaviour
                             data = obj.list[obj.keys.IndexOf("description")];
                             if (data.keys.IndexOf("fi") > -1)
                             {
-                                program.Description = data.list[data.keys.IndexOf("fi")].str;
+                                String description = data.list[data.keys.IndexOf("fi")].str;
+                                description = Regex.Unescape(description);
+                                program.Description = description;
                             }
                         }
                         if (obj.keys.IndexOf("duration") > -1)
@@ -191,11 +145,24 @@ public class QueryHandler : MonoBehaviour
                                 }
                             }
                         }
+                        if (obj.keys.IndexOf("partOfSeries") > -1)
+                        {
+                            data = obj.list[obj.keys.IndexOf("partOfSeries")];
+                            if (data.keys.IndexOf("description") > -1)
+                            {
+                                data = data.list[obj.keys.IndexOf("description")];
+                                if (data.keys.IndexOf("fi") > -1)
+                                {
+                                    string series = data.list[data.keys.IndexOf("fi")].str;
+                                    series = Regex.Unescape(series);
+                                    program.Series = series;
+                                }
+                            }
+                        }
                     }
                     else
                     {
-                        Debug.Log("No Finnish Title available, skipping program");
-                        //AccessData(data);
+                        Debug.Log("No Finnish title available, skipping program");
                     }
                 }
             }
@@ -203,43 +170,6 @@ public class QueryHandler : MonoBehaviour
         catch (NullReferenceException e)
         {
             Debug.Log(e);
-        }
-    }
-
-
-
-
-    void AccessData(JSONObject obj)
-    {
-        switch (obj.type)
-        {
-            case JSONObject.Type.OBJECT:
-                for (int i = 0; i < obj.list.Count; i++)
-                {
-                    string key = (string)obj.keys[i];
-                    JSONObject j = (JSONObject)obj.list[i];
-                    Debug.Log(key);
-                    AccessData(j);
-                }
-                break;
-            case JSONObject.Type.ARRAY:
-                foreach (JSONObject j in obj.list)
-                {
-                    AccessData(j);
-                }
-                break;
-            case JSONObject.Type.STRING:
-                Debug.Log(obj.str);
-                break;
-            case JSONObject.Type.NUMBER:
-                Debug.Log(obj.n);
-                break;
-            case JSONObject.Type.BOOL:
-                Debug.Log(obj.b);
-                break;
-            case JSONObject.Type.NULL:
-                Debug.Log("NULL");
-                break;
         }
     }
 }

@@ -13,6 +13,7 @@ public class Program : MonoBehaviour
     public string Description { get; set; }
     public string Duration { get; set; }
     public string Subject { get; set; }
+    public string Series { get; set; }
 
     Dictionary<string, string> savedFields;
 
@@ -29,6 +30,7 @@ public class Program : MonoBehaviour
         savedFields.Add("Description", Description);
         savedFields.Add("Duration", Duration);
         savedFields.Add("Subject", Subject);
+        savedFields.Add("Series", Series); 
     }
 
     // Update is called once per frame
@@ -46,11 +48,6 @@ public class Program : MonoBehaviour
             string value;
             savedFields.TryGetValue(infoField.name, out value);
             infoField.text = value;
-
-            /*if (savedFields.ContainsKey(infoField.name))
-            {
-                infoField.text = savedFields[infoField.name];
-            }*/
         }        
     }
 }
