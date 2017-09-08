@@ -50,7 +50,7 @@ public class QueryHandler : MonoBehaviour
 
     public void Search()
     {
-        if (!string.IsNullOrEmpty(Input.text) || Input.text != queryText)
+        if (!string.IsNullOrEmpty(Input.text))
         {
             InfoPanelController.CleanContent();
             queryText = Input.text;
@@ -62,7 +62,7 @@ public class QueryHandler : MonoBehaviour
     {
         UnityWebRequest www = UnityWebRequest.Get(baseUrl + auth + limit + "&type=program" + "&q=" + queryText);
 
-        
+        // www.Send() is getting deprecated
         yield return www.Send();
 
         // use with Unity 2017.2.0 ->
