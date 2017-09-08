@@ -19,6 +19,7 @@ public class QueryHandler : MonoBehaviour
     string auth;
     string queryText;
     string limit;
+    string type;
     int offset;
 
 
@@ -29,6 +30,7 @@ public class QueryHandler : MonoBehaviour
         baseUrl = "https://external.api.yle.fi/v1/programs/items.json";
         auth = "?app_id=7f376c3d&app_key=2fc2125e68cfddf83376af66ea6a588c";
         limit = "&limit=10";
+        type = "&type=program";
         offset = 0;
         queryText = "";
     }
@@ -53,14 +55,14 @@ public class QueryHandler : MonoBehaviour
         if (!string.IsNullOrEmpty(Input.text))
         {
             InfoPanelController.CleanContent();
-            queryText = Input.text;
+            queryText = "&q=" + Input.text;
             StartCoroutine(GetPrograms());
         }
     }
 
     IEnumerator GetPrograms()
     {
-        UnityWebRequest www = UnityWebRequest.Get(baseUrl + auth + limit + "&type=program" + "&q=" + queryText);
+        UnityWebRequest www = UnityWebRequest.Get(baseUrl + auth + limit + type + queryText);
 
         // www.Send() is getting deprecated
         yield return www.Send();
