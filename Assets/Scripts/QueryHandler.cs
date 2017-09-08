@@ -62,7 +62,11 @@ public class QueryHandler : MonoBehaviour
     {
         UnityWebRequest www = UnityWebRequest.Get(baseUrl + auth + limit + "&type=program" + "&q=" + queryText);
 
+        
         yield return www.Send();
+
+        // use with Unity 2017.2.0 ->
+        //yield return www.SendWebRequest();
 
         if (www.isNetworkError)
         {
