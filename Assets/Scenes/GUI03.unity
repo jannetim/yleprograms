@@ -322,9 +322,9 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1334, y: 750}
-  m_ScreenMatchMode: 1
-  m_MatchWidthOrHeight: 0
+  m_ReferenceResolution: {x: 960, y: 640}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -337,7 +337,7 @@ Canvas:
   m_GameObject: {fileID: 154877739}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 802452856}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -457,8 +457,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1893245691}
   m_HandleRect: {fileID: 1893245690}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 0.9995876
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -625,7 +625,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 103, y: 329}
+  m_AnchoredPosition: {x: 103.05, y: 278}
   m_SizeDelta: {x: 288.5, y: 344.9}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &406950439
@@ -702,7 +702,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -479, y: -103.05}
+  m_AnchoredPosition: {x: -350, y: -103.05}
   m_SizeDelta: {x: 568.1, y: 190.35}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &503722113
@@ -890,7 +890,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.08252046, y: 0.0000009124302}
+  m_AnchoredPosition: {x: -0.000060103834, y: 0.0000009124302}
   m_SizeDelta: {x: -198, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &653534479
